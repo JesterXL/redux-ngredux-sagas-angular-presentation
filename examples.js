@@ -149,6 +149,7 @@
 	// --------------------------------------------------
 
 	// imperative code
+
 	function getNotes(accountNumber)
 	{
 		return new Promise((success, failure)=>
@@ -158,7 +159,7 @@
 				return failure(new Error('accountNumber is invalid.'));
 			}
 			oracle.getConnection()
-			.then(()=>
+			.then((connection)=>
 			{
 				connection.execute(
 				getNotesQueryString(accountNumber),
@@ -525,10 +526,14 @@
 					error: undefined,
 					results: action.searchResults
 				});
+
+			default:
+				return state;
 		}
 	}
 
 	// Reducer our reducers
+
 	export function search(state=defaultState, action)
 	{
 		switch(action.type)
@@ -541,6 +546,9 @@
 
 			case SEARCH_RESULT:
 				return searchResult(state, action);
+
+			default:
+				return state;
 		}
 	}
 
@@ -835,6 +843,25 @@
 		<md-progress-circular 
 			ng-show="$ctrl.loading" 
 			md-mode="indeterminate"></md-progress-circular>
+
+
+		import angular from 'angular';
+		import LoginController from './login.controller';
+
+		export default angular.module('project.login', [])
+		.component('jxlLogin', {
+			templateUrl: 'main/login/login.component.html',
+			controller: LoginController,
+			bindings: {
+				username: '<',
+				password: '<'
+			}
+		})
+
+
+
+		
+		.name;
 		
 
 
